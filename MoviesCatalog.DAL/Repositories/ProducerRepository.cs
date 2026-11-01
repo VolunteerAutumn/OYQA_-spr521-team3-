@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MoviesCatalog.DAL.Data; // Adjust if your namespace is different
+using MoviesCatalog.DAL.Data;
 using MoviesCatalog.DAL.Entities;
 using MoviesCatalog.DAL.Interfaces;
 
@@ -22,7 +22,7 @@ public class ProducerRepository : IProducerRepository
     public async Task<Producer?> GetByIdAsync(int id)
     {
         return await _context.Producers
-            .Include(p => p.Movies) // Load the movies this producer made
+            .Include(p => p.Movies)
             .FirstOrDefaultAsync(p => p.Id == id);
     }
 

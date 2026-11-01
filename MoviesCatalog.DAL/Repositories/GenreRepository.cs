@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MoviesCatalog.DAL.Data; // Adjust if your namespace is different
+using MoviesCatalog.DAL.Data;
 using MoviesCatalog.DAL.Entities;
 using MoviesCatalog.DAL.Interfaces;
 
@@ -22,7 +22,7 @@ public class GenreRepository : IGenreRepository
     public async Task<Genre?> GetByIdAsync(int id)
     {
         return await _context.Genres
-            .Include(g => g.Movies) // Load the movies that have this genre
+            .Include(g => g.Movies)
             .FirstOrDefaultAsync(g => g.Id == id);
     }
 
