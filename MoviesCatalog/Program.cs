@@ -11,6 +11,10 @@ builder.Services.AddSwaggerGen(); // Add this
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<MoviesCatalog.DAL.Interfaces.IMovieRepository, MoviesCatalog.DAL.Repositories.MovieRepository>();
+builder.Services.AddScoped<MoviesCatalog.DAL.Interfaces.IGenreRepository, MoviesCatalog.DAL.Repositories.GenreRepository>();
+builder.Services.AddScoped<MoviesCatalog.DAL.Interfaces.IProducerRepository, MoviesCatalog.DAL.Repositories.ProducerRepository>();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
