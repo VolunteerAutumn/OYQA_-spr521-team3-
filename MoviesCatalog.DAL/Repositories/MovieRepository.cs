@@ -47,8 +47,7 @@ public class MovieRepository : IMovieRepository
         existing.ReleaseYear = movie.ReleaseYear;
         existing.Rating = movie.Rating;
         existing.ProducerId = movie.ProducerId;
-        // Note: Updating Genres (Many-to-Many) is a bit more complex, 
-        // we can just skip it for now or handle it later!
+        // Note to oneself: Updating Genres (Many-to-Many) is a bit more complex
 
         await _context.SaveChangesAsync();
         return true;
