@@ -9,7 +9,8 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<Movie, MovieDto>();
+        CreateMap<MovieCreateDto, Movie>()
+            .ForMember(dest => dest.Genres, opt => opt.Ignore());
         CreateMap<Genre, GenreDto>();
         CreateMap<Producer, ProducerDto>();
     }

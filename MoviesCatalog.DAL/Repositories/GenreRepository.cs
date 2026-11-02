@@ -52,4 +52,11 @@ public class GenreRepository : IGenreRepository
         await _context.SaveChangesAsync();
         return true;
     }
+
+    public async Task<List<Genre>> GetByIdsAsync(List<int> ids)
+    {
+        return await _context.Genres
+            .Where(g => ids.Contains(g.Id))
+            .ToListAsync();
+    }
 }
