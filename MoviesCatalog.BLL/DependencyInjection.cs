@@ -1,8 +1,9 @@
-﻿
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MoviesCatalog.DAL;
 using MoviesCatalog.BLL.Mapping;
+using MoviesCatalog.BLL.Interfaces;
+using MoviesCatalog.BLL.Services;
 
 namespace MoviesCatalog.BLL;
 
@@ -12,18 +13,19 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        // 1. Add the DAL
+        // Add the DAL
         services.AddDal(configuration);
 
-        // 2. Add AutoMapper
+        // Add AutoMapper
         services.AddAutoMapper(cfg =>
         {
-            cfg.AddProfile<MoviesCatalog.BLL.Mapping.MappingProfile>();
+            cfg.AddProfile<MappingProfile>();
         });
 
-        // 3. Add Validators
-
-        // 4. Add Services
+        // Add Services
+        services.AddScoped<IMovieService, MovieService>();
+        services.AddScoped<IGenreService, GenreService>();
+        services.AddScoped<IProducerService, ProducerService>();
 
         return services;
     }

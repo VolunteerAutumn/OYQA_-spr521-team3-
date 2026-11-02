@@ -39,15 +39,25 @@ public class MovieRepository : IMovieRepository
 
     public async Task<bool> UpdateAsync(Movie movie)
     {
-        var existing = await _context.Movies.FirstOrDefaultAsync(m => m.Id == movie.Id);
-        if (existing == null) return false;
+        var existing = await _context.Movies
+            .Include(m => m.Genres)
+            .FirstOrDefaultAsync(m => m.Id == movie.Id);
+
+        if (existing == null)
+            return false;
 
         existing.Title = movie.Title;
         existing.Description = movie.Description;
         existing.ReleaseYear = movie.ReleaseYear;
         existing.Rating = movie.Rating;
         existing.ProducerId = movie.ProducerId;
-        // Note to oneself: Updating Genres (Many-to-Many) is a bit more complex
+
+        existing.Genres.Clear();
+
+        foreach (var genre in movie.Genres)
+        {
+            existing.Genres.Add(genre);
+        }
 
         await _context.SaveChangesAsync();
         return true;
@@ -56,7 +66,9 @@ public class MovieRepository : IMovieRepository
     public async Task<bool> DeleteAsync(int id)
     {
         var movie = await _context.Movies.FirstOrDefaultAsync(m => m.Id == id);
-        if (movie == null) return false;
+
+        if (movie == null)
+            return false;
 
         _context.Movies.Remove(movie);
         await _context.SaveChangesAsync();
