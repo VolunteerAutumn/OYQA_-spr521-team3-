@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using MoviesCatalog.BLL.DTOs;
 using MoviesCatalog.DAL.Entities;
 
@@ -9,8 +8,11 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
+        CreateMap<Movie, MovieDto>();
+
         CreateMap<MovieCreateDto, Movie>()
             .ForMember(dest => dest.Genres, opt => opt.Ignore());
+
         CreateMap<Genre, GenreDto>();
         CreateMap<Producer, ProducerDto>();
     }

@@ -10,6 +10,5 @@ public class Producer
     [MaxLength(100)]
     public string Name { get; set; } = string.Empty;
 
-    // One-to-Many relationship to Movies
     public ICollection<Movie> Movies { get; set; } = new List<Movie>();
 }
