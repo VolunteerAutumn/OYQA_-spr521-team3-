@@ -18,6 +18,12 @@ namespace MoviesCatalog.Middlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
+            // 1. BYPASS SWAGGER
+            if (context.Request.Path.StartsWithSegments("/swagger"))
+            {
+                await _next(context);
+                return;
+            }
             if (!context.Request.Headers.TryGetValue(HeaderName, out var extractedApiKey))
             {
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
