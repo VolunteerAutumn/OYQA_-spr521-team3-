@@ -1,4 +1,5 @@
 using MoviesCatalog.BLL;
+using MoviesCatalog.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddBll(builder.Configuration);
 
 var app = builder.Build();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseMiddleware<ApiKeyMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
