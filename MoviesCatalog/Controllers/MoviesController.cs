@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MoviesCatalog.BLL.DTOs;
 using MoviesCatalog.BLL.Interfaces;
 
@@ -29,6 +30,7 @@ public class MoviesController : ControllerBase
         return Ok(movie);
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<MovieDto>> Create(MovieCreateDto dto)
     {
@@ -43,6 +45,7 @@ public class MoviesController : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, MovieCreateDto dto)
     {
@@ -58,6 +61,7 @@ public class MoviesController : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
