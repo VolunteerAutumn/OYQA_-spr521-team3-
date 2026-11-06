@@ -19,7 +19,7 @@ public class TokenService : ITokenService
         _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"] ?? throw new InvalidOperationException("JWT Key is missing")));
     }
 
-    public string CreateToken(ApplicationUser user)
+    public string CreateToken(ApplicationUser user, IList<string> roles)
     {
         var claims = new List<Claim>
         {
@@ -28,8 +28,10 @@ public class TokenService : ITokenService
             new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName ?? string.Empty)
         };
 
-        var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+        claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
+        var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+        
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),

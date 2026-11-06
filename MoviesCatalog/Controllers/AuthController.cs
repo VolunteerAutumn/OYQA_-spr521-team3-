@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MoviesCatalog.BLL.DTOs;
 using MoviesCatalog.BLL.Interfaces;
 
@@ -43,6 +44,21 @@ public class AuthController : ControllerBase
         }
     }
 
+    [HttpGet("confirm-email")]
+    public async Task<IActionResult> ConfirmEmailGet([FromQuery] string userId, [FromQuery] string token)
+    {
+        try
+        {
+            var success = await _authService.ConfirmEmailAsync(userId, token);
+            if (success) return Ok(new { message = "Email confirmed successfully. You can close this tab." });
+            return BadRequest(new { message = "Email confirmation failed." });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
     [HttpPost("confirm-email")]
     public async Task<IActionResult> ConfirmEmail([FromQuery] string userId, [FromQuery] string token)
     {
@@ -70,6 +86,18 @@ public class AuthController : ControllerBase
         {
             return BadRequest(new { message = ex.Message });
         }
+    }
+
+    [HttpGet("reset-password")]
+    [AllowAnonymous]
+    public IActionResult ResetPasswordGet([FromQuery] string email, [FromQuery] string token)
+    {
+        return Ok(new
+        {
+            message = "Token received successfully. Please use the POST /api/Auth/reset-password endpoint in Swagger to set your new password.",
+            email = email,
+            token = token
+        });
     }
 
     [HttpPost("reset-password")]
@@ -100,6 +128,7 @@ public class AuthController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost("assign-role")]
     public async Task<IActionResult> AssignRole([FromBody] AssignRoleDto model)
     {

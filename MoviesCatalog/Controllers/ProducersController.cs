@@ -52,7 +52,7 @@ public class ProducersController : ControllerBase
     public async Task<IActionResult> Delete(int id)
     {
         var deleted = await _producerService.DeleteAsync(id);
-        if (!deleted) return NotFound(new { message = "Genre not found." }); // (або Producer not found, за бажанням)
+        return NotFound(new { message = "Producer not found." });
         return NoContent();
     }
 }

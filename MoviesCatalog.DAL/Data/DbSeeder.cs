@@ -1,11 +1,21 @@
+using Microsoft.AspNetCore.Identity;
 using MoviesCatalog.DAL.Entities;
 
 namespace MoviesCatalog.DAL.Data;
 
 public static class DbSeeder
 {
-    public static void Seed(AppDbContext context)
+    public static void Seed(AppDbContext context, RoleManager<IdentityRole> roleManager)
     {
+        if (!roleManager.RoleExistsAsync("User").GetAwaiter().GetResult())
+        {
+            roleManager.CreateAsync(new IdentityRole("User")).GetAwaiter().GetResult();
+        }
+        if (!roleManager.RoleExistsAsync("Admin").GetAwaiter().GetResult())
+        {
+            roleManager.CreateAsync(new IdentityRole("Admin")).GetAwaiter().GetResult();
+        }
+
         if (context.Movies.Any())
         {
             return;

@@ -14,7 +14,11 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        base.OnModelCreating(builder); 
+        base.OnModelCreating(builder);
+
+        builder.Entity<ApplicationUser>()
+            .Property(u => u.DateOfBirth)
+            .HasColumnType("timestamp without time zone");
 
         builder.Entity<Movie>()
             .HasMany(m => m.Genres)
