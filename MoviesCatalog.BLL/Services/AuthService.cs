@@ -2,6 +2,7 @@
 using MoviesCatalog.BLL.DTOs;
 using MoviesCatalog.BLL.Interfaces;
 using MoviesCatalog.DAL.Entities;
+using System.Web;
 
 namespace MoviesCatalog.BLL.Services;
 
@@ -26,26 +27,39 @@ public class AuthService : IAuthService
 
     public async Task<string> RegisterAsync(RegisterDto model)
     {
+        DateTime? safeDateOfBirth = model.DateOfBirth.HasValue
+            ? DateTime.SpecifyKind(model.DateOfBirth.Value, DateTimeKind.Unspecified)
+            : null;
+
         var user = new ApplicationUser
         {
             UserName = model.Username,
             Email = model.Email,
-            DateOfBirth = model.DateOfBirth,
+            DateOfBirth = safeDateOfBirth,
             IsSubscribedToNewsletter = model.IsSubscribedToNewsletter
         };
 
         var result = await _userManager.CreateAsync(user, model.Password);
 
-        if (!result.Succeeded)
+        if (result.Succeeded)
+        {
+            await _userManager.AddToRoleAsync(user, "User");
+        }
+        else
         {
             var errors = string.Join("; ", result.Errors.Select(e => e.Description));
             throw new Exception($"User creation failed: {errors}");
         }
 
         var emailToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-        await _emailService.SendEmailAsync(user.Email!, "Confirm your email", $"Your confirmation token: {emailToken}");
+        var encodedToken = HttpUtility.UrlEncode(emailToken);
+        var confirmationLink = $"http://localhost:5000/api/Auth/confirm-email?userId={user.Id}&token={encodedToken}";
 
-        return _tokenService.CreateToken(user);
+        await _emailService.SendEmailAsync(user.Email!, "Confirm your email", $"Please confirm your email by clicking this link: {confirmationLink}");
+
+        // GET ROLES AND PASS TO TOKEN
+        var roles = await _userManager.GetRolesAsync(user);
+        return _tokenService.CreateToken(user, roles);
     }
 
     public async Task<string> LoginAsync(LoginDto model)
@@ -56,7 +70,9 @@ public class AuthService : IAuthService
         var isPasswordValid = await _userManager.CheckPasswordAsync(user, model.Password);
         if (!isPasswordValid) throw new Exception("Invalid email or password.");
 
-        return _tokenService.CreateToken(user);
+        // GET ROLES AND PASS TO TOKEN
+        var roles = await _userManager.GetRolesAsync(user);
+        return _tokenService.CreateToken(user, roles);
     }
 
     public async Task<bool> ConfirmEmailAsync(string userId, string token)
@@ -73,8 +89,11 @@ public class AuthService : IAuthService
         var user = await _userManager.FindByEmailAsync(email);
         if (user == null) return;
 
-        var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-        await _emailService.SendEmailAsync(user.Email!, "Reset Password", $"Your password reset token: {token}");
+        var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+        var encodedToken = HttpUtility.UrlEncode(resetToken);
+        var resetLink = $"http://localhost:5000/api/Auth/reset-password?email={user.Email}&token={encodedToken}";
+
+        await _emailService.SendEmailAsync(user.Email!, "Reset Password", $"Please reset your password by clicking this link: {resetLink}");
     }
 
     public async Task ResetPasswordAsync(ResetPasswordDto model)

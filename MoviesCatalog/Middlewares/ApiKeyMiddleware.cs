@@ -18,8 +18,14 @@ namespace MoviesCatalog.Middlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
-            // 1. BYPASS SWAGGER
             if (context.Request.Path.StartsWithSegments("/swagger"))
+            {
+                await _next(context);
+                return;
+            }
+
+            if (context.Request.Path.StartsWithSegments("/api/Auth/confirm-email") ||
+                context.Request.Path.StartsWithSegments("/api/Auth/reset-password"))
             {
                 await _next(context);
                 return;

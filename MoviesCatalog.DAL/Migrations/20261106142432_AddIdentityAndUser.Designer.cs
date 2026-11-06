@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MoviesCatalog.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20261106111247_AddIdentityAndUser")]
+    [Migration("20261106142432_AddIdentityAndUser")]
     partial class AddIdentityAndUser
     {
         /// <inheritdoc />
@@ -185,7 +185,7 @@ namespace MoviesCatalog.DAL.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("DateOfBirth")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
