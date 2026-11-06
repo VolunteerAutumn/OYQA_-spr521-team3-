@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MoviesCatalog.BLL.DTOs;
 using MoviesCatalog.BLL.Interfaces;
 
@@ -29,6 +30,7 @@ public class ProducersController : ControllerBase
         return Ok(producer);
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<ProducerDto>> Create(ProducerDto dto)
     {
@@ -36,6 +38,7 @@ public class ProducersController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
+    [Authorize]
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, ProducerDto dto)
     {
@@ -44,11 +47,12 @@ public class ProducersController : ControllerBase
         return NoContent();
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
         var deleted = await _producerService.DeleteAsync(id);
-        if (!deleted) return NotFound(new { message = "Producer not found." });
+        if (!deleted) return NotFound(new { message = "Genre not found." }); // (або Producer not found, за бажанням)
         return NoContent();
     }
 }
