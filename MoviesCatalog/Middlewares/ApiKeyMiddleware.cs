@@ -24,7 +24,9 @@ namespace MoviesCatalog.Middlewares
                 return;
             }
 
-            if (context.Request.Path.StartsWithSegments("/api/Auth/confirm-email") ||
+            if (context.Request.Path.StartsWithSegments("/api/Auth/login") ||
+                context.Request.Path.StartsWithSegments("/api/Auth/register") ||
+                context.Request.Path.StartsWithSegments("/api/Auth/confirm-email") ||
                 context.Request.Path.StartsWithSegments("/api/Auth/reset-password"))
             {
                 await _next(context);

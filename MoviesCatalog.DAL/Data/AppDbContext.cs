@@ -21,6 +21,18 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
             .HasColumnType("timestamp without time zone");
 
         builder.Entity<Movie>()
+            .HasIndex(m => m.Title)
+            .IsUnique();
+
+        builder.Entity<Genre>()
+            .HasIndex(g => g.Name)
+            .IsUnique();
+
+        builder.Entity<Producer>()
+            .HasIndex(p => p.Name)
+            .IsUnique();
+
+        builder.Entity<Movie>()
             .HasMany(m => m.Genres)
             .WithMany(g => g.Movies)
             .UsingEntity(j => j.ToTable("MovieGenres"));

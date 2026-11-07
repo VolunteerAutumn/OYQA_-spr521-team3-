@@ -21,11 +21,9 @@ namespace MoviesCatalog.Middlewares
             var responseTime = DateTime.UtcNow;
 
             var duration = responseTime - requestTime;
-            var logMessage = $"=== TIMESTAMP ===\nRequest received at {requestTime:O}\nResponse sent at {responseTime:O}\nRequest processed in {duration.TotalMilliseconds} ms\n";
+            var logMessage = $"=== TIMESTAMP ===\nRequest received at {requestTime:O}\nResponse sent at {responseTime:O}\nRequest processed in {duration.TotalMilliseconds} ms";
 
-            var logPath = Path.Combine(Directory.GetCurrentDirectory(), "Logs", "log.log");
-            Directory.CreateDirectory(Path.GetDirectoryName(logPath)!);
-            await File.AppendAllTextAsync(logPath, logMessage + "\n");
+            await MoviesCatalog.Presentation.Infrastructure.FileLogger.LogAsync(logMessage);
         }
     }
 }

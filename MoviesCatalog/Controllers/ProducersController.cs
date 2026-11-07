@@ -7,6 +7,7 @@ namespace MoviesCatalog.Presentation.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class ProducersController : ControllerBase
 {
     private readonly IProducerService _producerService;
@@ -52,6 +53,7 @@ public class ProducersController : ControllerBase
     public async Task<IActionResult> Delete(int id)
     {
         var deleted = await _producerService.DeleteAsync(id);
-        return NotFound(new { message = "Producer not found." });
+        if (!deleted) return NotFound(new { message = "Producer not found." });
+        return NoContent();
     }
 }
