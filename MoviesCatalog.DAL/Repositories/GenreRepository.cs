@@ -35,7 +35,9 @@ public class GenreRepository : IGenreRepository
 
     public async Task<bool> UpdateAsync(Genre genre)
     {
-        var existing = await _context.Genres.FirstOrDefaultAsync(g => g.Id == genre.Id);
+        var existing = await _context.Genres
+            .Include(g => g.Movies)
+            .FirstOrDefaultAsync(g => g.Id == genre.Id);
         if (existing == null) return false;
 
         existing.Name = genre.Name;

@@ -12,9 +12,9 @@ URL: /swagger/index.html
 Status Code: 200
 
 === TIMESTAMP ===
-Request received at 2026-11-07T07:40:22.1002397Z
-Response sent at 2026-11-07T07:40:22.1855397Z
-Request processed in 85,3 ms
+Request received at 2026-11-07T11:34:50.1154444Z
+Response sent at 2026-11-07T11:34:50.2116308Z
+Request processed in 96,1864 ms
 
 === REQUEST COUNTER ===
 Request #2: GET /swagger/index.css
@@ -28,9 +28,9 @@ URL: /swagger/index.css
 Status Code: 304
 
 === TIMESTAMP ===
-Request received at 2026-11-07T07:40:22.2205679Z
-Response sent at 2026-11-07T07:40:22.2336046Z
-Request processed in 13,0367 ms
+Request received at 2026-11-07T11:34:50.2356134Z
+Response sent at 2026-11-07T11:34:50.2486778Z
+Request processed in 13,0644 ms
 
 === REQUEST COUNTER ===
 Request #3: GET /swagger/v1/swagger.json
@@ -44,9 +44,9 @@ URL: /swagger/v1/swagger.json
 Status Code: 200
 
 === TIMESTAMP ===
-Request received at 2026-11-07T07:40:22.5279998Z
-Response sent at 2026-11-07T07:40:22.6651727Z
-Request processed in 137,1729 ms
+Request received at 2026-11-07T11:34:50.5915561Z
+Response sent at 2026-11-07T11:34:50.7196246Z
+Request processed in 128,0685 ms
 
 === REQUEST COUNTER ===
 Request #4: POST /api/Auth/login
@@ -60,124 +60,28 @@ URL: /api/Auth/login
 Status Code: 200
 
 === TIMESTAMP ===
-Request received at 2026-11-07T07:40:43.8827098Z
-Response sent at 2026-11-07T07:40:44.3321238Z
-Request processed in 449,414 ms
+Request received at 2026-11-07T11:35:05.9043131Z
+Response sent at 2026-11-07T11:35:06.2071058Z
+Request processed in 302,7927 ms
 
 === REQUEST COUNTER ===
-Request #5: POST /api/Genres
-
-=== IP INFO ===
-Client IP: ::1
-
-=== BASIC INFO ===
-HTTP Method: POST
-URL: /api/Genres
-Status Code: 403
-
-=== TIMESTAMP ===
-Request received at 2026-11-07T07:41:06.4241267Z
-Response sent at 2026-11-07T07:41:06.4684109Z
-Request processed in 44,2842 ms
-
-=== REQUEST COUNTER ===
-Request #6: POST /api/Auth/login
-
-=== IP INFO ===
-Client IP: ::1
-
-=== BASIC INFO ===
-HTTP Method: POST
-URL: /api/Auth/login
-Status Code: 200
-
-=== TIMESTAMP ===
-Request received at 2026-11-07T07:41:27.7756253Z
-Response sent at 2026-11-07T07:41:27.8680282Z
-Request processed in 92,4029 ms
-
-=== REQUEST COUNTER ===
-Request #7: POST /api/Genres
-
-=== IP INFO ===
-Client IP: ::1
-
-=== BASIC INFO ===
-HTTP Method: POST
-URL: /api/Genres
-Status Code: 201
-
-=== TIMESTAMP ===
-Request received at 2026-11-07T07:41:39.2882105Z
-Response sent at 2026-11-07T07:41:39.6017901Z
-Request processed in 313,5796 ms
-
-=== REQUEST COUNTER ===
-Request #8: POST /api/Movies
-
-=== IP INFO ===
-Client IP: ::1
-
-=== BASIC INFO ===
-HTTP Method: POST
-URL: /api/Movies
-Status Code: 201
-
-=== TIMESTAMP ===
-Request received at 2026-11-07T07:42:12.1747555Z
-Response sent at 2026-11-07T07:42:12.5996753Z
-Request processed in 424,9198 ms
-
-=== REQUEST COUNTER ===
-Request #9: POST /api/Producers
-
-=== IP INFO ===
-Client IP: ::1
-
-=== BASIC INFO ===
-HTTP Method: POST
-URL: /api/Producers
-Status Code: 201
-
-=== TIMESTAMP ===
-Request received at 2026-11-07T07:42:39.2482392Z
-Response sent at 2026-11-07T07:42:39.2892647Z
-Request processed in 41,0255 ms
-
-=== REQUEST COUNTER ===
-Request #10: GET /api/Movies
-
-=== IP INFO ===
-Client IP: ::1
-
-=== BASIC INFO ===
-HTTP Method: GET
-URL: /api/Movies
-Status Code: 200
-
-=== TIMESTAMP ===
-Request received at 2026-11-07T07:43:02.9511813Z
-Response sent at 2026-11-07T07:43:03.0132962Z
-Request processed in 62,1149 ms
-
-=== REQUEST COUNTER ===
-Request #11: PUT /api/Movies/7
+Request #5: PUT /api/Movies/9
 
 === IP INFO ===
 Client IP: ::1
 
 === BASIC INFO ===
 HTTP Method: PUT
-URL: /api/Movies/7
+URL: /api/Movies/9
 Status Code: 204
 
 === TIMESTAMP ===
-Request received at 2026-11-07T07:43:24.0257699Z
-Response sent at 2026-11-07T07:43:24.1082083Z
-Request processed in 82,4384 ms
+Request received at 2026-11-07T11:35:29.6332475Z
+Response sent at 2026-11-07T11:35:30.6028922Z
+Request processed in 969,6447 ms
 
 === REQUEST COUNTER ===
-Request #12: GET /api/Movies
+Request #6: GET /api/Movies
 
 === IP INFO ===
 Client IP: ::1
@@ -188,87 +92,7 @@ URL: /api/Movies
 Status Code: 200
 
 === TIMESTAMP ===
-Request received at 2026-11-07T07:43:30.8367110Z
-Response sent at 2026-11-07T07:43:30.8454290Z
-Request processed in 8,718 ms
-
-=== REQUEST COUNTER ===
-Request #13: GET /api/Genres
-
-=== IP INFO ===
-Client IP: ::1
-
-=== BASIC INFO ===
-HTTP Method: GET
-URL: /api/Genres
-Status Code: 200
-
-=== TIMESTAMP ===
-Request received at 2026-11-07T07:43:47.6318169Z
-Response sent at 2026-11-07T07:43:47.6527397Z
-Request processed in 20,9228 ms
-
-=== REQUEST COUNTER ===
-Request #14: PUT /api/Movies/7
-
-=== IP INFO ===
-Client IP: ::1
-
-=== BASIC INFO ===
-HTTP Method: PUT
-URL: /api/Movies/7
-Status Code: 204
-
-=== TIMESTAMP ===
-Request received at 2026-11-07T07:43:57.7803160Z
-Response sent at 2026-11-07T07:43:57.7997307Z
-Request processed in 19,4147 ms
-
-=== REQUEST COUNTER ===
-Request #15: GET /api/Movies
-
-=== IP INFO ===
-Client IP: ::1
-
-=== BASIC INFO ===
-HTTP Method: GET
-URL: /api/Movies
-Status Code: 200
-
-=== TIMESTAMP ===
-Request received at 2026-11-07T07:44:07.3825201Z
-Response sent at 2026-11-07T07:44:07.3875229Z
-Request processed in 5,0028 ms
-
-=== REQUEST COUNTER ===
-Request #16: DELETE /api/Movies/7
-
-=== IP INFO ===
-Client IP: ::1
-
-=== BASIC INFO ===
-HTTP Method: DELETE
-URL: /api/Movies/7
-Status Code: 204
-
-=== TIMESTAMP ===
-Request received at 2026-11-07T07:44:28.8210919Z
-Response sent at 2026-11-07T07:44:28.8727070Z
-Request processed in 51,6151 ms
-
-=== REQUEST COUNTER ===
-Request #17: GET /api/Movies
-
-=== IP INFO ===
-Client IP: ::1
-
-=== BASIC INFO ===
-HTTP Method: GET
-URL: /api/Movies
-Status Code: 200
-
-=== TIMESTAMP ===
-Request received at 2026-11-07T07:44:34.0009724Z
-Response sent at 2026-11-07T07:44:34.0224210Z
-Request processed in 21,4486 ms
+Request received at 2026-11-07T11:35:35.9813509Z
+Response sent at 2026-11-07T11:35:36.0380141Z
+Request processed in 56,6632 ms
 

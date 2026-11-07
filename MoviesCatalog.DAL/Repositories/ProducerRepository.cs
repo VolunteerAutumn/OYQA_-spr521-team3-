@@ -35,7 +35,9 @@ public class ProducerRepository : IProducerRepository
 
     public async Task<bool> UpdateAsync(Producer producer)
     {
-        var existing = await _context.Producers.FirstOrDefaultAsync(p => p.Id == producer.Id);
+        var existing = await _context.Producers
+            .Include(p => p.Movies)
+            .FirstOrDefaultAsync(p => p.Id == producer.Id);
         if (existing == null) return false;
 
         existing.Name = producer.Name;

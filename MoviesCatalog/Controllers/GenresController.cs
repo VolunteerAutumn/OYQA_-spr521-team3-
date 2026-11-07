@@ -7,6 +7,7 @@ namespace MoviesCatalog.Presentation.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class GenresController : ControllerBase
 {
     private readonly IGenreService _genreService;

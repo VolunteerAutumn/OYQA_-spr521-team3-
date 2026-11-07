@@ -76,26 +76,15 @@ public class MovieService : IMovieService
     public async Task<bool> UpdateAsync(int id, MovieCreateDto dto)
     {
         var movie = await _movieRepository.GetByIdAsync(id);
-
-        if (movie == null)
-            return false;
+        if (movie == null) return false;
 
         var producer = await _producerRepository.GetByIdAsync(dto.ProducerId);
+        if (producer == null) throw new ArgumentException("Producer not found.");
 
-        if (producer == null)
-            throw new ArgumentException("Producer not found.");
+        var genres = await _genreRepository.GetByIdsAsync(dto.GenreIds.Distinct().ToList());
 
-        var genres = new List<Genre>();
-
-        foreach (var genreId in dto.GenreIds.Distinct())
-        {
-            var genre = await _genreRepository.GetByIdAsync(genreId);
-
-            if (genre == null)
-                throw new ArgumentException($"Genre with ID {genreId} not found.");
-
-            genres.Add(genre);
-        }
+        if (genres.Count != dto.GenreIds.Distinct().Count())
+            throw new ArgumentException("One or more genres not found.");
 
         movie.Title = dto.Title;
         movie.Description = dto.Description;
@@ -103,11 +92,14 @@ public class MovieService : IMovieService
         movie.Rating = dto.Rating;
         movie.ProducerId = producer.Id;
         movie.Producer = producer;
-        movie.Genres = genres;
 
-        var result = await _movieRepository.UpdateAsync(movie);
+        movie.Genres.Clear();
+        foreach (var genre in genres)
+        {
+            movie.Genres.Add(genre);
+        }
 
-        return result;
+        return await _movieRepository.UpdateAsync(movie);
     }
 
     public async Task<bool> DeleteAsync(int id)

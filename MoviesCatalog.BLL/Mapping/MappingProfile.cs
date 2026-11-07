@@ -8,7 +8,7 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<Movie, MovieDto>().ReverseMap(); // Added ReverseMap() just in case
+        CreateMap<Movie, MovieDto>().ReverseMap();
 
         CreateMap<MovieCreateDto, Movie>()
             .ForMember(dest => dest.Genres, opt => opt.Ignore());

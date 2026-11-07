@@ -21,13 +21,9 @@ namespace MoviesCatalog.Middlewares
             await _next(context);
 
             var statusCode = context.Response.StatusCode;
+            var logMessage = $"=== BASIC INFO ===\nHTTP Method: {method}\nURL: {path}\nStatus Code: {statusCode}";
 
-            var logMessage = $"=== BASIC INFO ===\nHTTP Method: {method}\nURL: {path}\nStatus Code: {statusCode}\n";
-
-            // Append to log file
-            var logPath = Path.Combine(Directory.GetCurrentDirectory(), "Logs", "log.log");
-            Directory.CreateDirectory(Path.GetDirectoryName(logPath)!);
-            await File.AppendAllTextAsync(logPath, logMessage + "\n");
+            await MoviesCatalog.Presentation.Infrastructure.FileLogger.LogAsync(logMessage);
         }
     }
 }

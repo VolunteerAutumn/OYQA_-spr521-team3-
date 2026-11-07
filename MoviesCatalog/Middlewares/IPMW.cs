@@ -15,7 +15,7 @@ namespace MoviesCatalog.Middlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
-            var blockedIps = new List<string> { }; // Add blocked IPs here if needed
+            var blockedIps = new List<string> { };
             var clientIp = context.Connection.RemoteIpAddress?.ToString();
 
             var logMessage = $"=== IP INFO ===\nClient IP: {clientIp}";
@@ -31,9 +31,7 @@ namespace MoviesCatalog.Middlewares
                 await _next(context);
             }
 
-            var logPath = Path.Combine(Directory.GetCurrentDirectory(), "Logs", "log.log");
-            Directory.CreateDirectory(Path.GetDirectoryName(logPath)!);
-            await File.AppendAllTextAsync(logPath, logMessage + "\n\n");
+            await MoviesCatalog.Presentation.Infrastructure.FileLogger.LogAsync(logMessage);
         }
     }
 }

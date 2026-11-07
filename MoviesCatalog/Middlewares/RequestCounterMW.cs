@@ -18,12 +18,9 @@ namespace MoviesCatalog.Middlewares
         public async Task InvokeAsync(HttpContext context)
         {
             var count = Interlocked.Increment(ref _requestCount);
+            var logMessage = $"=== REQUEST COUNTER ===\nRequest #{count}: {context.Request.Method} {context.Request.Path}";
 
-            var logMessage = $"=== REQUEST COUNTER ===\nRequest #{count}: {context.Request.Method} {context.Request.Path}\n";
-
-            var logPath = Path.Combine(Directory.GetCurrentDirectory(), "Logs", "log.log");
-            Directory.CreateDirectory(Path.GetDirectoryName(logPath)!);
-            await File.AppendAllTextAsync(logPath, logMessage + "\n");
+            await MoviesCatalog.Presentation.Infrastructure.FileLogger.LogAsync(logMessage);
 
             await _next(context);
         }

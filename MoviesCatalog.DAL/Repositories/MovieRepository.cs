@@ -40,11 +40,9 @@ public class MovieRepository : IMovieRepository
     public async Task<bool> UpdateAsync(Movie movie)
     {
         var existing = await _context.Movies
-            .Include(m => m.Genres)
             .FirstOrDefaultAsync(m => m.Id == movie.Id);
 
-        if (existing == null)
-            return false;
+        if (existing == null) return false;
 
         existing.Title = movie.Title;
         existing.Description = movie.Description;
@@ -52,12 +50,14 @@ public class MovieRepository : IMovieRepository
         existing.Rating = movie.Rating;
         existing.ProducerId = movie.ProducerId;
 
-        existing.Genres.Clear();
+        await _context.Database.ExecuteSqlRawAsync(
+            "DELETE FROM \"MovieGenres\" WHERE \"MoviesId\" = {0}", movie.Id);
 
-        foreach (var genre in movie.Genres)
-        {
-            existing.Genres.Add(genre);
-        }
+        var newGenres = await _context.Genres
+            .Where(g => movie.Genres.Select(mg => mg.Id).Contains(g.Id))
+            .ToListAsync();
+
+        existing.Genres = newGenres;
 
         await _context.SaveChangesAsync();
         return true;

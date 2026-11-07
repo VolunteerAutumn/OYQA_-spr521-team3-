@@ -7,6 +7,7 @@ namespace MoviesCatalog.Presentation.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class MoviesController : ControllerBase
 {
     private readonly IMovieService _movieService;
