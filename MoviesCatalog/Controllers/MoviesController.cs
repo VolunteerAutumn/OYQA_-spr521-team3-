@@ -30,7 +30,7 @@ public class MoviesController : ControllerBase
         return Ok(movie);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult<MovieDto>> Create(MovieCreateDto dto)
     {
@@ -45,7 +45,7 @@ public class MoviesController : ControllerBase
         }
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, MovieCreateDto dto)
     {
@@ -61,7 +61,7 @@ public class MoviesController : ControllerBase
         }
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
