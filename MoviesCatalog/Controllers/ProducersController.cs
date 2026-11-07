@@ -30,7 +30,7 @@ public class ProducersController : ControllerBase
         return Ok(producer);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult<ProducerDto>> Create(ProducerDto dto)
     {
@@ -38,7 +38,7 @@ public class ProducersController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, ProducerDto dto)
     {
@@ -47,12 +47,11 @@ public class ProducersController : ControllerBase
         return NoContent();
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
         var deleted = await _producerService.DeleteAsync(id);
         return NotFound(new { message = "Producer not found." });
-        return NoContent();
     }
 }

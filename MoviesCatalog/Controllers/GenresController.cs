@@ -30,7 +30,7 @@ public class GenresController : ControllerBase
         return Ok(genre);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult<GenreDto>> Create(GenreDto dto)
     {
@@ -38,7 +38,7 @@ public class GenresController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, GenreDto dto)
     {
@@ -47,7 +47,7 @@ public class GenresController : ControllerBase
         return NoContent();
     }
 
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {

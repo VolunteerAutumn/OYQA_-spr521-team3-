@@ -14,6 +14,10 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var logPath = Path.Combine(Directory.GetCurrentDirectory(), "Logs", "log.log");
+Directory.CreateDirectory(Path.GetDirectoryName(logPath)!);
+File.WriteAllText(logPath, "=== NEW SESSION STARTED ===\n\n");
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -97,6 +101,10 @@ var app = builder.Build();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseMiddleware<ApiKeyMiddleware>();
+app.UseMiddleware<TimestampMW>();
+app.UseMiddleware<BasicInfoMW>();
+app.UseMiddleware<IPMW>();
+app.UseMiddleware<RequestCounterMW>();
 
 if (app.Environment.IsDevelopment())
 {
