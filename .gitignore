@@ -2,3 +2,4 @@
 bin/
 obj/
 Logs/
+node_modules/
